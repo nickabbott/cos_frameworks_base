@@ -468,10 +468,11 @@ ssize_t NuCachedSource2::readInternal(off_t offset, void *data, size_t size) {
             return mFinalStatus;
         }
 
-        size_t avail = mCache->totalSize() - delta;
-        mCache->copy(delta, data, avail);
+        size_t sizeToCopy = mCache->totalSize() - delta;
+        sizeToCopy = (sizeToCopy > size) ? size : sizeToCopy;
+        mCache->copy(delta, data, sizeToCopy);
 
-        return avail;
+        return sizeToCopy;
     }
 
 #ifndef OMAP_ENHANCEMENT
