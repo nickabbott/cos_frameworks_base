@@ -143,13 +143,13 @@ int SurfaceTextureClient::setSwapInterval(int interval) {
 }
 
 int SurfaceTextureClient::dequeueBuffer(android_native_buffer_t** buffer) {
-    LOGV("SurfaceTextureClient::dequeueBuffer");
+    ALOGV("SurfaceTextureClient::dequeueBuffer");
     Mutex::Autolock lock(mMutex);
     int buf = -1;
     status_t result = mSurfaceTexture->dequeueBuffer(&buf, mReqWidth, mReqHeight,
             mReqFormat, mReqUsage);
     if (result < 0) {
-        LOGV("dequeueBuffer: ISurfaceTexture::dequeueBuffer(%d, %d, %d, %d)"
+        ALOGV("dequeueBuffer: ISurfaceTexture::dequeueBuffer(%d, %d, %d, %d)"
              "failed: %d", mReqWidth, mReqHeight, mReqFormat, mReqUsage,
              result);
         return result;
@@ -172,7 +172,7 @@ int SurfaceTextureClient::dequeueBuffer(android_native_buffer_t** buffer) {
 }
 
 int SurfaceTextureClient::cancelBuffer(android_native_buffer_t* buffer) {
-    LOGV("SurfaceTextureClient::cancelBuffer");
+    ALOGV("SurfaceTextureClient::cancelBuffer");
     Mutex::Autolock lock(mMutex);
     int i = getSlotFromBufferLocked(buffer);
     if (i < 0) {
@@ -212,18 +212,18 @@ int SurfaceTextureClient::getSlotFromBufferLocked(
 }
 
 int SurfaceTextureClient::lockBuffer(android_native_buffer_t* buffer) {
-    LOGV("SurfaceTextureClient::lockBuffer");
+    ALOGV("SurfaceTextureClient::lockBuffer");
     Mutex::Autolock lock(mMutex);
     return OK;
 }
 
 int SurfaceTextureClient::queueBuffer(android_native_buffer_t* buffer) {
-    LOGV("SurfaceTextureClient::queueBuffer");
+    ALOGV("SurfaceTextureClient::queueBuffer");
     Mutex::Autolock lock(mMutex);
     int64_t timestamp;
     if (mTimestamp == NATIVE_WINDOW_TIMESTAMP_AUTO) {
         timestamp = systemTime(SYSTEM_TIME_MONOTONIC);
-        LOGV("SurfaceTextureClient::queueBuffer making up timestamp: %.2f ms",
+        ALOGV("SurfaceTextureClient::queueBuffer making up timestamp: %.2f ms",
              timestamp / 1000000.f);
     } else {
         timestamp = mTimestamp;
@@ -241,7 +241,7 @@ int SurfaceTextureClient::queueBuffer(android_native_buffer_t* buffer) {
 }
 
 int SurfaceTextureClient::query(int what, int* value) const {
-    LOGV("SurfaceTextureClient::query");
+    ALOGV("SurfaceTextureClient::query");
     { // scope for the lock
         Mutex::Autolock lock(mMutex);
         switch (what) {
@@ -440,7 +440,7 @@ int SurfaceTextureClient::performQcomOperation(int operation, int arg1,
 #endif
 
 int SurfaceTextureClient::connect(int api) {
-    LOGV("SurfaceTextureClient::connect");
+    ALOGV("SurfaceTextureClient::connect");
     Mutex::Autolock lock(mMutex);
     int err = mSurfaceTexture->connect(api,
             &mDefaultWidth, &mDefaultHeight, &mTransformHint);
@@ -451,7 +451,7 @@ int SurfaceTextureClient::connect(int api) {
 }
 
 int SurfaceTextureClient::disconnect(int api) {
-    LOGV("SurfaceTextureClient::disconnect");
+    ALOGV("SurfaceTextureClient::disconnect");
     Mutex::Autolock lock(mMutex);
     freeAllBuffers();
     int err = mSurfaceTexture->disconnect(api);
@@ -469,7 +469,7 @@ int SurfaceTextureClient::disconnect(int api) {
 
 int SurfaceTextureClient::setUsage(uint32_t reqUsage)
 {
-    LOGV("SurfaceTextureClient::setUsage");
+    ALOGV("SurfaceTextureClient::setUsage");
     Mutex::Autolock lock(mMutex);
 #ifdef QCOM_HARDWARE
     if (reqUsage & GRALLOC_USAGE_EXTERNAL_ONLY) {
@@ -495,7 +495,7 @@ int SurfaceTextureClient::setUsage(uint32_t reqUsage)
 
 int SurfaceTextureClient::setCrop(Rect const* rect)
 {
-    LOGV("SurfaceTextureClient::setCrop");
+    ALOGV("SurfaceTextureClient::setCrop");
     Mutex::Autolock lock(mMutex);
 
     Rect realRect;
@@ -513,7 +513,7 @@ int SurfaceTextureClient::setCrop(Rect const* rect)
 
 int SurfaceTextureClient::setBufferCount(int bufferCount)
 {
-    LOGV("SurfaceTextureClient::setBufferCount");
+    ALOGV("SurfaceTextureClient::setBufferCount");
     Mutex::Autolock lock(mMutex);
 
     status_t err = mSurfaceTexture->setBufferCount(bufferCount);
@@ -529,7 +529,7 @@ int SurfaceTextureClient::setBufferCount(int bufferCount)
 
 int SurfaceTextureClient::setBuffersDimensions(int w, int h)
 {
-    LOGV("SurfaceTextureClient::setBuffersDimensions");
+    ALOGV("SurfaceTextureClient::setBuffersDimensions");
     Mutex::Autolock lock(mMutex);
 
     if (w<0 || h<0)
@@ -549,7 +549,7 @@ int SurfaceTextureClient::setBuffersDimensions(int w, int h)
 
 int SurfaceTextureClient::setBuffersFormat(int format)
 {
-    LOGV("SurfaceTextureClient::setBuffersFormat");
+    ALOGV("SurfaceTextureClient::setBuffersFormat");
     Mutex::Autolock lock(mMutex);
 
     if (format<0)
@@ -562,7 +562,7 @@ int SurfaceTextureClient::setBuffersFormat(int format)
 
 int SurfaceTextureClient::setScalingMode(int mode)
 {
-    LOGV("SurfaceTextureClient::setScalingMode(%d)", mode);
+    ALOGV("SurfaceTextureClient::setScalingMode(%d)", mode);
     Mutex::Autolock lock(mMutex);
     // mode is validated on the server
     status_t err = mSurfaceTexture->setScalingMode(mode);
@@ -574,7 +574,7 @@ int SurfaceTextureClient::setScalingMode(int mode)
 
 int SurfaceTextureClient::setBuffersTransform(int transform)
 {
-    LOGV("SurfaceTextureClient::setBuffersTransform");
+    ALOGV("SurfaceTextureClient::setBuffersTransform");
     Mutex::Autolock lock(mMutex);
     status_t err = mSurfaceTexture->setTransform(transform);
     return err;
@@ -582,7 +582,7 @@ int SurfaceTextureClient::setBuffersTransform(int transform)
 
 int SurfaceTextureClient::setBuffersTimestamp(int64_t timestamp)
 {
-    LOGV("SurfaceTextureClient::setBuffersTimestamp");
+    ALOGV("SurfaceTextureClient::setBuffersTimestamp");
     Mutex::Autolock lock(mMutex);
     mTimestamp = timestamp;
     return NO_ERROR;
