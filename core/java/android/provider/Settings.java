@@ -1841,6 +1841,12 @@ public final class Settings {
         public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
 
         /**
+         * URI to Override for incomming call touch ui
+         * @hide
+         */
+        public static final String PHONE_FORCE_INCOMING_CALL_UI = "PHONE_FORCE_INCOMING_CALL_UI";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          * @hide
