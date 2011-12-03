@@ -1346,10 +1346,19 @@ status_t StagefrightRecorder::setupCameraSource(
                 mTimeBetweenTimeLapseFrameCaptureUs);
         *cameraSource = mCameraSourceTimeLapse;
     } else {
+
+#ifdef QCOM_HARDWARE
+        bool useMeta = true;
+        char value[PROPERTY_VALUE_MAX];
+        if (property_get("debug.camcorder.disablemeta", value, NULL) &&
+            atoi(value)) {
+            useMeta = false;
+        }
+#endif
         *cameraSource = CameraSource::CreateFromCamera(
                 mCamera, mCameraProxy, mCameraId, videoSize, mFrameRate,
 #ifdef QCOM_HARDWARE
-                mPreviewSurface, false);
+                mPreviewSurface, useMeta);
 #else
                 mPreviewSurface, true /*storeMetaDataInVideoBuffers*/);
 #endif
@@ -1526,6 +1535,7 @@ status_t StagefrightRecorder::setupVideoEncoder(
 
     /*Comment out as temporary hack for camcorder
     if (mIsMetaDataStoredInVideoBuffers) {
+        LOGW("Camera source supports metadata mode, create OMXCodec for metadata");
         encoder_flags |= OMXCodec::kHardwareCodecsOnly;
         encoder_flags |= OMXCodec::kStoreMetaDataInVideoBuffers;
     }
