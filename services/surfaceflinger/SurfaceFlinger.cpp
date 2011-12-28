@@ -1393,6 +1393,7 @@ void SurfaceFlinger::updateHwcExternalDisplay(int externaltype)
 {
     invalidateHwcGeometry();
     const DisplayHardware& hw(graphicPlane(0).displayHardware());
+    mDirtyRegion.set(hw.bounds());
     HWComposer& hwc(hw.getHwComposer());
     hwc.enableHDMIOutput(externaltype);
 }
