@@ -3427,6 +3427,9 @@
     <!-- STK setup Call -->
     <string name="SetupCallDefault">Accept Call?</string>
 
+    <!--Application killed toast -->
+    <string name="app_killed_message">Application killed</string>
+
     <!-- Lock screen Weather - Weather codes -->
     <string name="weather_0">Tornado</string>
     <string name="weather_1">Tropical Storm</string>
