@@ -10060,7 +10060,7 @@ public class WindowManagerService extends IWindowManager.Stub
             Debug.stopMethodTracing();
         }
 
-        if (CUSTOM_SCREEN_ROTATION && mPolicy.isScreenOn()) {
+        if (CUSTOM_SCREEN_ROTATION) {
             if (mScreenRotationAnimation != null) {
                 if (mScreenRotationAnimation.dismiss(MAX_ANIMATION_DURATION,
                         mTransitionAnimationScale)) {
