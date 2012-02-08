@@ -2163,10 +2163,11 @@ public final class Settings {
         */
         public static final String EXPANDED_FLASH_MODE = "expanded_flash_mode";
 
-	/**
-         * @hide
-	 */
-	public static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
+        /**
+        * AutoHide CombinedBar on tablets.
+        * @hide
+        */
+        public static final String COMBINED_BAR_AUTO_HIDE = "combined_bar_auto_hide";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
