@@ -10029,11 +10029,11 @@ public class WindowManagerService extends IWindowManager.Stub
             Debug.startMethodTracing(file.toString(), 8 * 1024 * 1024);
         }
 
+        if (mScreenRotationAnimation != null && mScreenRotationAnimation.isAnimating()) {
+            mScreenRotationAnimation.kill();
+            mScreenRotationAnimation = null;
+        }
         if (CUSTOM_SCREEN_ROTATION && mPolicy.isScreenOn()) {
-            if (mScreenRotationAnimation != null && mScreenRotationAnimation.isAnimating()) {
-                mScreenRotationAnimation.kill();
-                mScreenRotationAnimation = null;
-            }
             if (mScreenRotationAnimation == null) {
                 mScreenRotationAnimation = new ScreenRotationAnimation(mContext,
                         mDisplay, mFxSession);
@@ -10060,14 +10060,12 @@ public class WindowManagerService extends IWindowManager.Stub
             Debug.stopMethodTracing();
         }
 
-        if (CUSTOM_SCREEN_ROTATION) {
-            if (mScreenRotationAnimation != null) {
-                if (mScreenRotationAnimation.dismiss(MAX_ANIMATION_DURATION,
-                        mTransitionAnimationScale)) {
-                    requestAnimationLocked(0);
-                } else {
-                    mScreenRotationAnimation = null;
-                }
+        if (mScreenRotationAnimation != null) {
+            if (mScreenRotationAnimation.dismiss(MAX_ANIMATION_DURATION,
+                    mTransitionAnimationScale)) {
+                requestAnimationLocked(0);
+            } else {
+                mScreenRotationAnimation = null;
             }
         } else {
             Surface.unfreezeDisplay(0);
