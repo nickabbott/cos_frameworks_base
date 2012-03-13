@@ -272,7 +272,14 @@ int SurfaceTextureClient::query(int what, int* value) const {
                 *value = mDefaultHeight;
                 return NO_ERROR;
             case NATIVE_WINDOW_TRANSFORM_HINT:
-                return mSurfaceTexture->query(what, value);
+#ifdef QCOM_HARDWARE
+                if (mSurfaceTexture->query(what, value) != NO_ERROR) {
+                    *value = mTransformHint;
+                }
+#else
+                *value = mTransformHint;
+#endif
+                return NO_ERROR;
         }
     }
     return mSurfaceTexture->query(what, value);
