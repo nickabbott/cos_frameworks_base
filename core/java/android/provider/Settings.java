@@ -1688,6 +1688,12 @@ public final class Settings {
         public static final String POWER_SOUNDS_ENABLED = "power_sounds_enabled";
 
         /**
+         * Whether to toggle the flashlight when HOME button is long pressed while at the lockscreen
+         * @hide
+         */
+        public static final String LOCKSCREEN_LONG_HOME_ACTION = "lockscreen_flashlight";
+
+        /**
          * Whether to play a sound for dock events.
          * @hide
          */
