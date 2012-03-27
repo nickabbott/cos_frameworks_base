@@ -1932,6 +1932,12 @@ public final class Settings {
  
 
         /**
+         * Whether to route USB Audio when docked.
+         * @hide
+         */
+        public static final String DOCK_USB_AUDIO_ENABLED = "dock_usb_audio_enabled";
+
+        /**
          * Whether to play a sound for dock events.
          * @hide
          */
