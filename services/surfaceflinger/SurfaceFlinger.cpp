@@ -441,7 +441,7 @@ bool SurfaceFlinger::threadLoop()
         handleWorkList();
     }
 
-#ifdef QCOM_HARDWARE
+#if defined(QCOM_HARDWARE) && !defined(TARGET8x50)
     if (isRotationCompleted() == false) {
         LOGD("Rotation is not finished. Skip the composition");
         return true;
@@ -1041,7 +1041,7 @@ void SurfaceFlinger::setupHardwareComposer(Region& dirtyInOut)
                     dirtyInOut.orSelf(layer->visibleRegionScreen);
                 }
                 layer->setOverlay(isOverlay);
-#ifdef QCOM_HARDWARE
+#if defined(QCOM_HARDWARE) && !defined(TARGET8x50)
                 layer->mQCLayer->setS3DComposeFormat(cur[i].hints);
 #endif
             }
@@ -2467,7 +2467,7 @@ status_t SurfaceFlinger::captureScreenImplLocked(DisplayID dpy,
         glClear(GL_COLOR_BUFFER_BIT);
 
         const LayerVector& layers(mDrawingState.layersSortedByZ);
-#ifdef QCOM_HARDWARE
+#if defined(QCOM_HARDWARE) && !defined(TARGET8x50)
         //if we have secure windows, do not draw any layers.
         const size_t count = mSecureFrameBuffer ? 0: layers.size();
 #else
@@ -2576,7 +2576,7 @@ status_t SurfaceFlinger::captureScreen(DisplayID dpy,
         virtual bool handler() {
             Mutex::Autolock _l(flinger->mStateLock);
 
-#ifndef QCOM_HARDWARE
+#if !defined(QCOM_HARDWARE) || defined(TARGET8x50)
             // if we have secure windows, never allow the screen capture
             if (flinger->mSecureFrameBuffer)
                 return true;
