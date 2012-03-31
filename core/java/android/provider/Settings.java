@@ -1832,7 +1832,14 @@ public final class Settings {
          */
         public static final String ACCELEROMETER_ROTATION = "accelerometer_rotation";
 
+        /* 
+         * Control whether the navigation bar should be displayed or not
+         * @hide
+         */
+	public static final String HAS_NAVIGATION_BAR = "has_navigation_bar";
+
         /**
+ software buttons (Framework part)
          * Default screen rotation when no other policy applies.
          * When {@link #ACCELEROMETER_ROTATION} is zero and no on-screen Activity expresses a
          * preference, this rotation value will be used. Must be one of the
