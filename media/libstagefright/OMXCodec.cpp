@@ -3307,10 +3307,6 @@ bool OMXCodec::drainInputBuffer(BufferInfo *info) {
         mNoMoreOutputData = false;
     }
 
-    CODEC_LOGV("Calling emptyBuffer on buffer %p (length %d), "
-               "timestamp %lld us (%.2f secs)",
-               info->mBuffer, offset,
-               timestampUs, timestampUs / 1E6);
 
     if (info == NULL) {
         CHECK(mFlags & kUseSecureInputBuffers);
@@ -3321,6 +3317,11 @@ bool OMXCodec::drainInputBuffer(BufferInfo *info) {
         // to use it to signal EOS to the codec.
         info = findEmptyInputBuffer();
     }
+
+    CODEC_LOGV("Calling emptyBuffer on buffer %p (length %d), "
+               "timestamp %lld us (%.2f secs)",
+               info->mBuffer, offset,
+               timestampUs, timestampUs / 1E6);
 
     err = mOMX->emptyBuffer(
             mNode, info->mBuffer, 0, offset,
