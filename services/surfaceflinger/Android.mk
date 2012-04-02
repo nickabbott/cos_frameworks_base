@@ -59,7 +59,6 @@ LOCAL_SHARED_LIBRARIES += \
 
 LOCAL_C_INCLUDES += hardware/qcom/display/libqcomui
 
-
 ifeq ($(TARGET_QCOM_HDMI_OUT),true)
 LOCAL_CFLAGS += -DQCOM_HDMI_OUT
 endif

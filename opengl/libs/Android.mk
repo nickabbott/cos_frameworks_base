@@ -52,9 +52,6 @@ ifneq ($(MAX_EGL_CACHE_SIZE),)
   LOCAL_CFLAGS += -DMAX_EGL_CACHE_SIZE=$(MAX_EGL_CACHE_SIZE)
 endif
 
-ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
-endif
-
 include $(BUILD_SHARED_LIBRARY)
 installed_libEGL := $(LOCAL_INSTALLED_MODULE)
 
