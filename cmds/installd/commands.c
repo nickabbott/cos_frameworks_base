@@ -244,20 +244,14 @@ static int is_valid_apk_path(const char *path)
     int len = strlen(APK_DIR_PREFIX);
 int nosubdircheck = 0;
     if (strncmp(path, APK_DIR_PREFIX, len)) {
-        len = strlen(APK_EXT_DIR_PREFIX);
-        if (strncmp(path, APK_EXT_DIR_PREFIX, len)) {
-            len = strlen(PROTECTED_DIR_PREFIX);
-            if (strncmp(path, PROTECTED_DIR_PREFIX, len)) {
-                len = strlen(PROTECTED_EXT_DIR_PREFIX);
-                if (strncmp(path, PROTECTED_EXT_DIR_PREFIX, len)) {
-                    len = strlen(SDCARD_DIR_PREFIX);
-                    if (strncmp(path, SDCARD_DIR_PREFIX, len)) {
-                        LOGE("invalid apk path '%s' (bad prefix)\n", path);
-                        return 0;
-                    } else {
-                        nosubdircheck = 1;
-                    }
-                }
+        len = strlen(PROTECTED_DIR_PREFIX);
+        if (strncmp(path, PROTECTED_DIR_PREFIX, len)) {
+            len = strlen(SDCARD_DIR_PREFIX);
+            if (strncmp(path, SDCARD_DIR_PREFIX, len)) {
+                LOGE("invalid apk path '%s' (bad prefix)\n", path);
+                return 0;
+            } else {
+                nosubdircheck = 1;
             }
         }
     }
@@ -308,20 +302,15 @@ int rm_dex(const char *path)
     }
 }
 
-int protect(char *pkgname, gid_t gid, int InstLocation)
+int protect(char *pkgname, gid_t gid)
 {
     struct stat s;
     char pkgpath[PKG_PATH_MAX];
 
     if (gid < AID_SYSTEM) return -1;
 
-    if (InstLocation < 0) {
-        if (create_pkg_path(pkgpath, PROTECTED_DIR_PREFIX, pkgname, ".apk"))
-            return -1;
-    } else {
-        if (create_pkg_path(pkgpath, PROTECTED_EXT_DIR_PREFIX, pkgname, ".apk"))
-            return -1;
-    }
+    if (create_pkg_path(pkgpath, PROTECTED_DIR_PREFIX, pkgname, ".apk"))
+        return -1;
 
     if (stat(pkgpath, &s) < 0) return -1;
 
@@ -512,18 +501,6 @@ int create_cache_path(char path[PKG_PATH_MAX], const char *src)
     
     if (dstlen > PKG_PATH_MAX) {
         return -1;
-    }
-
-    const char *cache_path = DALVIK_CACHE_PREFIX;
-    if (!strncmp(src, "/system", 7)) {
-        property_get("dalvik.vm.dexopt-data-only", dexopt_data_only, "");
-        if (strcmp(dexopt_data_only, "1") != 0) {
-            cache_path = DALVIK_SYSTEM_CACHE_PREFIX;
-        }
-    }
-
-    if (!strncmp(src, "/sd-ext", 7)) {
-        cache_path = DALVIK_SDEXT_CACHE_PREFIX;
     }
 
     sprintf(path,"%s%s%s",
