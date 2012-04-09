@@ -101,6 +101,13 @@ import android.os.StatFs;
 import android.os.Vibrator;
 import android.os.FileUtils.FileStatus;
 import android.os.storage.StorageManager;
+// BEGIN privacy-added
+import android.privacy.IPrivacySettingsManager;
+import android.privacy.PrivacySettingsManager;
+import android.privacy.surrogate.PrivacyAccountManager;
+import android.privacy.surrogate.PrivacyLocationManager;
+import android.privacy.surrogate.PrivacyTelephonyManager;
+// END privacy-added
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.ClipboardManager;
@@ -217,6 +224,9 @@ class ContextImpl extends Context {
     private UiModeManager mUiModeManager = null;
     private DownloadManager mDownloadManager = null;
     private NfcManager mNfcManager = null;
+    // BEGIN privacy-added
+    private static PrivacySettingsManager sPrivacySettingsManager = null;
+    // END privacy-added
 
     private final Object mSync = new Object();
 
@@ -1016,6 +1026,11 @@ class ContextImpl extends Context {
         } else if (WimaxManagerConstants.WIMAX_SERVICE.equals(name)) {
             return getWimaxManager();
         }
+        // BEGIN privacy-added
+        else if ("privacy".equals(name)) {
+            return getPrivacySettingsManager();
+        }
+        // END privacy-added
 
         return null;
     }
@@ -1025,7 +1040,9 @@ class ContextImpl extends Context {
             if (mAccountManager == null) {
                 IBinder b = ServiceManager.getService(ACCOUNT_SERVICE);
                 IAccountManager service = IAccountManager.Stub.asInterface(b);
-                mAccountManager = new AccountManager(this, service);
+                // BEGIN privacy-modified
+                mAccountManager = new PrivacyAccountManager(this, service);
+                // END privacy-modified
             }
             return mAccountManager;
         }
@@ -1133,7 +1150,9 @@ class ContextImpl extends Context {
     private TelephonyManager getTelephonyManager() {
         synchronized (mSync) {
             if (mTelephonyManager == null) {
-                mTelephonyManager = new TelephonyManager(getOuterContext());
+                // BEGIN privacy-modified
+                mTelephonyManager = new PrivacyTelephonyManager(getOuterContext());
+                // END privacy-modified
             }
         }
         return mTelephonyManager;
@@ -1154,7 +1173,9 @@ class ContextImpl extends Context {
             if (sLocationManager == null) {
                 IBinder b = ServiceManager.getService(LOCATION_SERVICE);
                 ILocationManager service = ILocationManager.Stub.asInterface(b);
-                sLocationManager = new LocationManager(service);
+                // BEGIN privacy-modified
+                sLocationManager = new PrivacyLocationManager(service, getOuterContext());
+                // END privacy-modified
             }
         }
         return sLocationManager;
@@ -1203,6 +1224,18 @@ class ContextImpl extends Context {
         return mUsbManager;
     }
 
+    // BEGIN privacy-added
+    private PrivacySettingsManager getPrivacySettingsManager() {
+        synchronized (mSync) {
+            if (sPrivacySettingsManager == null || !sPrivacySettingsManager.isServiceAvailable()) {
+                IBinder b = ServiceManager.getService("privacy");
+                IPrivacySettingsManager service = IPrivacySettingsManager.Stub.asInterface(b);
+                sPrivacySettingsManager = new PrivacySettingsManager(getOuterContext(), service);
+            }
+        }
+        return sPrivacySettingsManager;
+    }
+    // END privacy-added
     private Vibrator getVibrator() {
         synchronized (mSync) {
             if (mVibrator == null) {
