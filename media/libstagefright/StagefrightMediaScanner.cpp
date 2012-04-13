@@ -204,7 +204,7 @@ status_t StagefrightMediaScanner::processFile(
         return HandleFLAC(path, &client);
     }
 
-    if (mRetriever->setDataSource(path) == OK {
+    if (mRetriever->setDataSource(path) == OK) {
         const char *value;
         if ((value = mRetriever->extractMetadata(
                         METADATA_KEY_MIMETYPE)) != NULL) {
