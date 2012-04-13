@@ -102,7 +102,7 @@ public class MediaRecorder
      * the camera object. Must call before prepare().
      *
      * @param c the Camera to use for recording
-     */	
+     */
     public native void setCamera(Camera c);
 
     /**
