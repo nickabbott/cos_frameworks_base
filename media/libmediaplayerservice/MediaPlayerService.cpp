@@ -703,7 +703,6 @@ player_type getPlayerType(int fd, int64_t offset, int64_t length)
 
     if (ident == 0x43614c66) // 'fLaC'
         return FLAC_PLAYER;
-
     // Some kind of MIDI?
     EAS_DATA_HANDLE easdata;
     if (EAS_Init(&easdata) == EAS_SUCCESS) {
