@@ -102,7 +102,7 @@ public class MediaRecorder
      * the camera object. Must call before prepare().
      *
      * @param c the Camera to use for recording
-     */
+     */	
     public native void setCamera(Camera c);
 
     /**
@@ -287,6 +287,7 @@ public class MediaRecorder
     public native void setVideoSource(int video_source)
             throws IllegalStateException;
 
+    /** @hide */
     public native void setCameraParameters(String params)
             throws IllegalStateException;
 
