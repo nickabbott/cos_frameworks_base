@@ -1135,6 +1135,7 @@ public class Camera {
         public static final String ANTIBANDING_OFF = "off";
 
         //Values for ISO settings
+
         /** @hide */
         public static final String ISO_AUTO = "auto";
         /** @hide */
@@ -1151,6 +1152,7 @@ public class Camera {
         public static final String ISO_1250 = "1250";
         
         //Values for Lens Shading
+
         /** @hide */
         public static final String LENSSHADE_ENABLE = "enable";
         /** @hide */
@@ -1358,6 +1360,7 @@ public class Camera {
         private static final String PIXEL_FORMAT_JPEG = "jpeg";
 
         //Values for Continuous AF
+
         /** @hide */
         public static final String CAF_OFF = "caf-off";
         /** @hide */
@@ -2191,6 +2194,7 @@ public class Camera {
          * Get Max Sharpness Level
          *
          * @return max sharpness level
+         * @hide
          */
         public int getMaxSharpness(){
             return getInt(KEY_MAX_SHARPNESS, 0);
@@ -2347,7 +2351,6 @@ public class Camera {
          * @see #ANTIBANDING_50HZ
          * @see #ANTIBANDING_60HZ
          * @see #ANTIBANDING_OFF
-         * @hide
          */
         public String getAntibanding() {
             return get(KEY_ANTIBANDING);
@@ -2358,7 +2361,6 @@ public class Camera {
          *
          * @param antibanding new antibanding value.
          * @see #getAntibanding()
-         * @hide
          */
         public void setAntibanding(String antibanding) {
             set(KEY_ANTIBANDING, antibanding);
@@ -2370,7 +2372,6 @@ public class Camera {
          * @return a list of supported antibanding values. null if antibanding
          *         setting is not supported.
          * @see #getAntibanding()
-         * @hide
          */
         public List<String> getSupportedAntibanding() {
             String str = get(KEY_ANTIBANDING + SUPPORTED_VALUES_SUFFIX);
@@ -2430,7 +2431,6 @@ public class Camera {
          * @see #SCENE_MODE_SPORTS
          * @see #SCENE_MODE_PARTY
          * @see #SCENE_MODE_CANDLELIGHT
-         * @hide
          */
         public String getSceneMode() {
             return get(KEY_SCENE_MODE);
@@ -2447,7 +2447,6 @@ public class Camera {
          *
          * @param value scene mode.
          * @see #getSceneMode()
-         * @hide
          */
         public void setSceneMode(String value) {
             set(KEY_SCENE_MODE, value);
@@ -2459,7 +2458,6 @@ public class Camera {
          * @return a list of supported scene modes. null if scene mode setting
          *         is not supported.
          * @see #getSceneMode()
-         * @hide
          */
         public List<String> getSupportedSceneModes() {
             String str = get(KEY_SCENE_MODE + SUPPORTED_VALUES_SUFFIX);
@@ -2476,7 +2474,6 @@ public class Camera {
          * @see #FLASH_MODE_ON
          * @see #FLASH_MODE_RED_EYE
          * @see #FLASH_MODE_TORCH
-         * @hide
          */
         public String getFlashMode() {
             return get(KEY_FLASH_MODE);
@@ -2487,7 +2484,6 @@ public class Camera {
          *
          * @param value flash mode.
          * @see #getFlashMode()
-         * @hide
          */
         public void setFlashMode(String value) {
             set(KEY_FLASH_MODE, value);
@@ -2499,7 +2495,6 @@ public class Camera {
          * @return a list of supported flash modes. null if flash mode setting
          *         is not supported.
          * @see #getFlashMode()
-         * @hide
          */
         public List<String> getSupportedFlashModes() {
             String str = get(KEY_FLASH_MODE + SUPPORTED_VALUES_SUFFIX);
@@ -2519,7 +2514,6 @@ public class Camera {
          * @see #FOCUS_MODE_FIXED
          * @see #FOCUS_MODE_EDOF
          * @see #FOCUS_MODE_CONTINUOUS_VIDEO
-         * @hide
          */
         public String getFocusMode() {
             return get(KEY_FOCUS_MODE);
@@ -2530,7 +2524,6 @@ public class Camera {
          *
          * @param value focus mode.
          * @see #getFocusMode()
-         * @hide
          */
         public void setFocusMode(String value) {
             set(KEY_FOCUS_MODE, value);
@@ -2542,7 +2535,6 @@ public class Camera {
          * @return a list of supported focus modes. This method will always
          *         return a list with at least one element.
          * @see #getFocusMode()
-         * @hide
          */
         public List<String> getSupportedFocusModes() {
             String str = get(KEY_FOCUS_MODE + SUPPORTED_VALUES_SUFFIX);
@@ -2554,7 +2546,6 @@ public class Camera {
          *
          * @return the focal length. This method will always return a valid
          *         value.
-         * @hide
          */
         public float getFocalLength() {
             return Float.parseFloat(get(KEY_FOCAL_LENGTH));
@@ -2565,7 +2556,6 @@ public class Camera {
          *
          * @return horizontal angle of view. This method will always return a
          *         valid value.
-         * @hide
          */
         public float getHorizontalViewAngle() {
             return Float.parseFloat(get(KEY_HORIZONTAL_VIEW_ANGLE));
@@ -2576,7 +2566,6 @@ public class Camera {
          *
          * @return vertical angle of view. This method will always return a
          *         valid value.
-         * @hide
          */
         public float getVerticalViewAngle() {
             return Float.parseFloat(get(KEY_VERTICAL_VIEW_ANGLE));
@@ -2589,7 +2578,6 @@ public class Camera {
          *         #getMinExposureCompensation} to {@link
          *         #getMaxExposureCompensation}. 0 means exposure is not
          *         adjusted.
-         * @hide
          */
         public int getExposureCompensation() {
             return getInt(KEY_EXPOSURE_COMPENSATION, 0);
@@ -2604,7 +2592,6 @@ public class Camera {
          *        not adjusted. Application should call
          *        getMinExposureCompensation and getMaxExposureCompensation to
          *        know if exposure compensation is supported.
-         * @hide
          */
         public void setExposureCompensation(int value) {
             set(KEY_EXPOSURE_COMPENSATION, value);
@@ -2616,7 +2603,6 @@ public class Camera {
          * @return maximum exposure compensation index (>=0). If both this
          *         method and {@link #getMinExposureCompensation} return 0,
          *         exposure compensation is not supported.
-         * @hide
          */
         public int getMaxExposureCompensation() {
             return getInt(KEY_MAX_EXPOSURE_COMPENSATION, 0);
@@ -2628,7 +2614,6 @@ public class Camera {
          * @return minimum exposure compensation index (<=0). If both this
          *         method and {@link #getMaxExposureCompensation} return 0,
          *         exposure compensation is not supported.
-         * @hide
          */
         public int getMinExposureCompensation() {
             return getInt(KEY_MIN_EXPOSURE_COMPENSATION, 0);
@@ -2641,7 +2626,6 @@ public class Camera {
          *         multiplying the exposure compensation index and step. Ex: if
          *         exposure compensation index is -6 and step is 0.333333333, EV
          *         is -2.
-         * @hide
          */
         public float getExposureCompensationStep() {
             return getFloat(KEY_EXPOSURE_COMPENSATION_STEP, 0);
@@ -2654,7 +2638,6 @@ public class Camera {
          *
          * @return the current zoom value. The range is 0 to {@link
          *         #getMaxZoom}. 0 means the camera is not zoomed.
-         * @hide
          */
         public int getZoom() {
             return getInt(KEY_ZOOM, 0);
@@ -2669,7 +2652,6 @@ public class Camera {
          * before using this method.
          *
          * @param value zoom value. The valid range is 0 to {@link #getMaxZoom}.
-         * @hide
          */
         public void setZoom(int value) {
             set(KEY_ZOOM, value);
@@ -2680,7 +2662,6 @@ public class Camera {
          * before using other zoom methods.
          *
          * @return true if zoom is supported.
-         * @hide
          */
         public boolean isZoomSupported() {
             String str = get(KEY_ZOOM_SUPPORTED);
@@ -2695,7 +2676,6 @@ public class Camera {
          * should call this again after setting preview size.
          *
          * @return the maximum zoom value supported by the camera.
-         * @hide
          */
         public int getMaxZoom() {
             return getInt(KEY_MAX_ZOOM, 0);
@@ -2710,7 +2690,6 @@ public class Camera {
          *         #getMaxZoom} + 1. The list is sorted from small to large. The
          *         first element is always 100. The last element is the zoom
          *         ratio of the maximum zoom value.
-         * @hide
          */
         public List<Integer> getZoomRatios() {
             return splitInt(get(KEY_ZOOM_RATIOS));
@@ -2721,7 +2700,6 @@ public class Camera {
          * this before using other smooth zoom methods.
          *
          * @return true if smooth zoom is supported.
-         * @hide
          */
         public boolean isSmoothZoomSupported() {
             String str = get(KEY_SMOOTH_ZOOM_SUPPORTED);
@@ -2756,7 +2734,6 @@ public class Camera {
          * @see #FOCUS_DISTANCE_NEAR_INDEX
          * @see #FOCUS_DISTANCE_OPTIMAL_INDEX
          * @see #FOCUS_DISTANCE_FAR_INDEX
-         * @hide
          */
         public void getFocusDistances(float[] output) {
             if (output == null || output.length != 3) {
