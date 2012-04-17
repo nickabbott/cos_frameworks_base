@@ -37,12 +37,6 @@
 
 #include "CameraService.h"
 
-#ifdef USE_OVERLAY_FORMAT_YCbCr_420_SP
-#include "gralloc_priv.h"
-#endif
-
-#include <cutils/properties.h>
-
 namespace android {
 
 // ----------------------------------------------------------------------------
@@ -291,18 +285,8 @@ void CameraService::loadSoundAsync() {
     LOG1("CameraService::loadSound ref=%d", mSoundRef);
     if (mSoundRef++) return;
 
-    char value[PROPERTY_VALUE_MAX];
-    property_get("persist.camera.shutter.disable", value, "0");
-    int disableSound = atoi(value);
-
-    if(!disableSound) {
-        mSoundPlayer[SOUND_SHUTTER] = newMediaPlayer("/system/media/audio/ui/camera_click.ogg");
-        mSoundPlayer[SOUND_RECORDING] = newMediaPlayer("/system/media/audio/ui/VideoRecord.ogg");
-    }
-    else {
-        mSoundPlayer[SOUND_SHUTTER] = NULL;
-        mSoundPlayer[SOUND_RECORDING] = NULL;
-    }
+    mSoundPlayer[SOUND_SHUTTER] = newMediaPlayer("/system/media/audio/ui/camera_click.ogg");
+    mSoundPlayer[SOUND_RECORDING] = newMediaPlayer("/system/media/audio/ui/VideoRecord.ogg");
 }
 
 void CameraService::releaseSound() {
