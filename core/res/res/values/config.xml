@@ -780,4 +780,7 @@
 
     <!-- True will enable the electron beam screen-off animation. -->
     <bool name="config_screenOffAnimation">true</bool>
+
+    <!-- True if the Sym key should open the InputMethodPicker (default) -->
+    <bool name="config_symKeyShowsImePicker">true</bool>
 </resources>
