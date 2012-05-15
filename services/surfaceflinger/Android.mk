@@ -43,6 +43,11 @@ LOCAL_SHARED_LIBRARIES := \
 # this is only needed for DDMS debugging
 LOCAL_SHARED_LIBRARIES += libdvm libandroid_runtime
 
+
+ifeq ($(BOARD_ADRENO_DECIDE_TEXTURE_TARGET),true)
+    LOCAL_CFLAGS += -DDECIDE_TEXTURE_TARGET
+endif
+
 LOCAL_C_INCLUDES := \
 	$(call include-path-for, corecg graphics)
 
