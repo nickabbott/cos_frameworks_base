@@ -763,7 +763,7 @@ status_t AudioTrack::createTrack_l(
                 mNotificationFramesAct = frameCount/2;
             }
             if (frameCount < minFrameCount) {
-                LOGW_IF(enforceFrameCount, "Minimum buffer size corrected from %d to %d",
+                ALOGW_IF(enforceFrameCount, "Minimum buffer size corrected from %d to %d",
                          frameCount, minFrameCount);
                 frameCount = minFrameCount;
             }
