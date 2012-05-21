@@ -55,7 +55,7 @@ $(file) : $(input_font_files) | $(ACP)
 	chmod 0644 $(TARGET_OUT_INTERMEDIATES)/SYSFONT_INTERMEDIATES/*.ttf
 	#create the sqf
 	mksquashfs $(TARGET_OUT_INTERMEDIATES)/SYSFONT_INTERMEDIATES \
-	           $(TARGET_OUT)/fonts/fonts.sqf -all-root -noappend
+	           $(TARGET_OUT)/fonts/fonts.sqf -comp xz -all-root -noappend
 
 else
 copy_file_pairs := $(foreach cf,$(copy_from),$(LOCAL_PATH)/$(cf):system/fonts/$(cf))
