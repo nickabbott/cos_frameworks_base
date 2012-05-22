@@ -38,10 +38,11 @@ LOCAL_C_INCLUDES := hardware/qcom/display/libqcomui
 ifeq ($(TARGET_QCOM_HDMI_OUT),true)
 LOCAL_CFLAGS += -DQCOM_HDMI_OUT
 endif
+
 ifeq ($(TARGET_BOARD_PLATFORM),qsd8k)
 LOCAL_CFLAGS += -DTARGET8x50
 endif
-endif
+endif #qcom_hardware
 
 LOCAL_MODULE:= libgui
 
