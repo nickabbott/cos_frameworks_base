@@ -1019,7 +1019,7 @@ void SurfaceFlinger::setupHardwareComposer(Region& dirtyInOut)
                     dirtyInOut.orSelf(layer->visibleRegionScreen);
                 }
                 layer->setOverlay(isOverlay);
-#if defined(QCOM_HARDWARE) && !defined(TARGET8x50)
+#ifdef QCOM_HARDWARE
                 layer->mQCLayer->setS3DComposeFormat(cur[i].hints);
 #endif
             }
@@ -2445,7 +2445,7 @@ status_t SurfaceFlinger::captureScreenImplLocked(DisplayID dpy,
         glClear(GL_COLOR_BUFFER_BIT);
 
         const LayerVector& layers(mDrawingState.layersSortedByZ);
-#if defined(QCOM_HARDWARE) && !defined(TARGET8x50)
+#ifdef QCOM_HARDWARE
         //if we have secure windows, do not draw any layers.
         const size_t count = mSecureFrameBuffer ? 0: layers.size();
 #else
@@ -2554,7 +2554,7 @@ status_t SurfaceFlinger::captureScreen(DisplayID dpy,
         virtual bool handler() {
             Mutex::Autolock _l(flinger->mStateLock);
 
-#if !defined(QCOM_HARDWARE) || defined(TARGET8x50)
+#ifdef QCOM_HARDWARE
             // if we have secure windows, never allow the screen capture
             if (flinger->mSecureFrameBuffer)
                 return true;

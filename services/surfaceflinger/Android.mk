@@ -52,11 +52,9 @@ LOCAL_C_INCLUDES += hardware/libhardware/modules/gralloc
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 LOCAL_SHARED_LIBRARIES += \
 	libQcomUI
+
 LOCAL_C_INCLUDES += hardware/qcom/display/libqcomui
 
-ifeq ($(TARGET_BOARD_PLATFORM),qsd8k)
-LOCAL_CFLAGS += -DTARGET8x50
-endif
 
 ifeq ($(TARGET_QCOM_HDMI_OUT),true)
 LOCAL_CFLAGS += -DQCOM_HDMI_OUT
