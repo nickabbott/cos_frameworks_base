@@ -53,7 +53,6 @@ ifneq ($(MAX_EGL_CACHE_SIZE),)
 endif
 
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
-    LOCAL_CFLAGS += -DQCOM_HARDWARE
 endif
 
 include $(BUILD_SHARED_LIBRARY)
