@@ -45,14 +45,9 @@ public:
     virtual status_t setBufferCount(int bufferCount);
 
 protected:
-<<<<<<< HEAD
-    virtual int query(int what, int* value);
-=======
 #ifdef QCOM_HARDWARE
     virtual int query(int what, int* value);
 #endif
->>>>>>> f7800f4... SurfaceFlinger: Return the current transform value when queried
-
     virtual status_t queueBuffer(int buf, int64_t timestamp,
             uint32_t* outWidth, uint32_t* outHeight, uint32_t* outTransform);
 
