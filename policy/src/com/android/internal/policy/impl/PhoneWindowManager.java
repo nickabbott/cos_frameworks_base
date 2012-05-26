@@ -2996,6 +2996,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                         }
                     }
                 }
+                if (isScreenOn) {
+                    break;
+                }
             }
 
             case KeyEvent.KEYCODE_POWER: {
