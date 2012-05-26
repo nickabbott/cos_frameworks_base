@@ -2991,17 +2991,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                                 break;
                             }
                         }
-                        if (!isScreenOn && !mVolumeWakeScreen) {
+                        if (!isScreenOn) {
                             handleVolumeKey(AudioManager.STREAM_MUSIC, keyCode);
                         }
                     }
-                }
-                if (isScreenOn || !mVolumeWakeScreen) {
-                    break;
-                } else if (keyguardActive) {
-                    keyCode = KeyEvent.KEYCODE_POWER;
-                    mKeyguardMediator.onWakeKeyWhenKeyguardShowingTq(keyCode,
-                            mDockMode != Intent.EXTRA_DOCK_STATE_UNDOCKED);
                 }
             }
 
