@@ -51,7 +51,6 @@
                 />
 
             <include layout="@layout/keyguard_screen_status_land"
-                android:id="@+id/screen_status_land"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dip"
@@ -61,9 +60,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"/>
 
-            </RelativeLayout>
+        </RelativeLayout>
 
-     </RelativeLayout>
+    </RelativeLayout>
 
     <!-- right side -->
     <RelativeLayout
