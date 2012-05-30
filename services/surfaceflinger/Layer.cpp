@@ -318,42 +318,26 @@ void Layer::onDraw(const Region& clip) const
 	}
 #endif
 
-    GLuint currentTextureTarget =
-#ifdef QCOM_HARDWARE
-            mSurfaceTexture->getCurrentTextureTarget();
-#else
-            GL_TEXTURE_EXTERNAL_OES;
-#endif
-
     if (!isProtected()) {
-        glBindTexture(currentTextureTarget, mTextureName);
+        glBindTexture(GL_TEXTURE_EXTERNAL_OES, mTextureName);
         GLenum filter = GL_NEAREST;
         if (getFiltering() || needsFiltering() || isFixedSize() || isCropped()) {
             // TODO: we could be more subtle with isFixedSize()
             filter = GL_LINEAR;
         }
-        glTexParameterx(currentTextureTarget, GL_TEXTURE_MAG_FILTER, filter);
-        glTexParameterx(currentTextureTarget, GL_TEXTURE_MIN_FILTER, filter);
+        glTexParameterx(GL_TEXTURE_EXTERNAL_OES, GL_TEXTURE_MAG_FILTER, filter);
+        glTexParameterx(GL_TEXTURE_EXTERNAL_OES, GL_TEXTURE_MIN_FILTER, filter);
         glMatrixMode(GL_TEXTURE);
         glLoadMatrixf(mTextureMatrix);
         glMatrixMode(GL_MODELVIEW);
         glDisable(GL_TEXTURE_2D);
-        glEnable(currentTextureTarget);
+        glEnable(GL_TEXTURE_EXTERNAL_OES);
     } else {
-#ifdef QCOM_HARDWARE
-        glBindTexture(currentTextureTarget, mFlinger->getProtectedTexName());
-#else
-        glBindTexture(GL_TEXTURE_2D, mFlinger->getProtectedTexName());
-#endif
+        glBindTexture(GL_TEXTURE_EXTERNAL_OES, mFlinger->getProtectedTexName());
         glMatrixMode(GL_TEXTURE);
         glLoadIdentity();
         glMatrixMode(GL_MODELVIEW);
-#ifdef QCOM_HARDWARE
-        glEnable(currentTextureTarget);
-#else
-        glDisable(currentTextureTarget);
-        glEnable(GL_TEXTURE_2D);
-#endif
+        glEnable(GL_TEXTURE_EXTERNAL_OES);
     }
 
 #ifdef QCOM_HARDWARE
