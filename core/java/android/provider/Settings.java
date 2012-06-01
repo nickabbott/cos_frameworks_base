@@ -2184,6 +2184,12 @@ public final class Settings {
         public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
 
         /**
+         * Sets the lockscreen background style
+         * @hide
+         */
+        public static final String LOCKSCREEN_BACKGROUND = "lockscreen_background";
+
+        /**
          * Show the weather on the lock screen
          * @hide
          */
