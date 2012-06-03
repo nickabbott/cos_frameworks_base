@@ -763,7 +763,6 @@
          movement threshold where scrolling should begin. -->
     <dimen name="config_viewConfigurationTouchSlop">8dp</dimen>
 
-
     <!-- Array of OEM specific USB mode override config.
          OEM can override a certain USB mode depending on ro.bootmode.
          Specify an array of below items to set override rule.
@@ -776,14 +775,13 @@
          legacy USB manager should be started. -->
     <string name="config_legacyUmsLunFile">/sys/devices/platform/usb_mass_storage/lun0/file</string>
 
+    <!-- True if the Sym key should open the InputMethodPicker (default) -->
+    <bool name="config_symKeyShowsImePicker">true</bool>  
+
     <!-- Values greater or equal to 0 will enable electronbeam screen-on
          animation with the specified delay (in milliseconds), -1 will disable the animation -->
     <integer name="config_screenOnAnimation">-1</integer>
 
     <!-- True will enable the electron beam screen-off animation. -->
     <bool name="config_screenOffAnimation">true</bool>
-
-
-    <!-- True if the Sym key should open the InputMethodPicker (default) -->
-    <bool name="config_symKeyShowsImePicker">true</bool>  
 </resources>

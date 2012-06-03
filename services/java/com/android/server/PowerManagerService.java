@@ -2356,30 +2356,17 @@ public class PowerManagerService extends IPowerManager.Stub
         }
 
         private void startElectronBeamDelayed(Runnable animation, int delay) {
-            mElectronBeamOnHandlerThread = new HandlerThread("PowerManagerService.mScreenBrightness.mElectronBeamOnHandlerThread") {
-                @Override
-                protected void onLooperPrepared() {
-                    mElectronBeamOnHandler = new Handler();
-                    synchronized(mElectronBeamOnHandlerThread) {
-                        mElectronBeamOnHandlerThread.notifyAll();
-                    }
-                }
-            };
+            mElectronBeamOnHandlerThread = new HandlerThread("PowerManagerService.mScreenBrightness.mElectronBeamOnHandlerThread");
             mElectronBeamOnHandlerThread.start();
-            synchronized(mElectronBeamOnHandlerThread) {
-                try {
-                    mElectronBeamOnHandlerThread.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
+            mElectronBeamOnHandler = new Handler(mElectronBeamOnHandlerThread.getLooper());
             mElectronBeamOnHandler.postDelayed(animation,delay);
             try {
                 synchronized(mElectronBeamOnHandler) {
                     mElectronBeamOnHandler.wait();
                 }
             } catch (InterruptedException e) {
+                Slog.d(TAG,"mElectronBeamOnHandler.wait() interrupted");
+                Slog.d(TAG,Log.getStackTraceString(e));
                 e.printStackTrace();
             }
         }
