@@ -5626,9 +5626,16 @@ void OMXCodec::initOutputFormat(const sp<MetaData> &inputFormat) {
             } else {
                 CHECK(!"Unknown compression format.");
             }
-
-            mOutputFormat->setInt32(kKeyWidth, video_def->nFrameWidth);
-            mOutputFormat->setInt32(kKeyHeight, video_def->nFrameHeight);
+#ifdef USE_QCOM_OMX_FIX
+                //Update the Stride and Slice Height
+                //Allows creation of Renderer with correct height and width
+                mOutputFormat->setInt32(kKeyWidth, video_def->nStride);
+                mOutputFormat->setInt32(kKeyHeight, video_def->nSliceHeight);
+#else
+                //Some hardware expects the old behavior
+                mOutputFormat->setInt32(kKeyWidth, video_def->nFrameWidth);
+                mOutputFormat->setInt32(kKeyHeight, video_def->nFrameHeight);
+#endif
             mOutputFormat->setInt32(kKeyColorFormat, video_def->eColorFormat);
 
             if (!mIsEncoder) {
