@@ -4584,7 +4584,7 @@ void OMXCodec::setImageOutputFormat(
 #if 0
     OMX_INDEXTYPE index;
     status_t err = mOMX->get_extension_index(
-            mNode, "OMX.TI.JPEG.decode.Config.OutputColorFormat", &index);
+            mNode, "OMX.TI.JPEG.decoder.Config.OutputColorFormat", &index);
     CHECK_EQ(err, (status_t)OK);
 
     err = mOMX->set_config(mNode, index, &format, sizeof(format));
