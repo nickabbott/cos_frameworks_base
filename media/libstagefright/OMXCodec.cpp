@@ -207,7 +207,7 @@ static sp<MediaSource> InstantiateSoftwareDecoder(
 #undef FACTORY_CREATE
 
 static const CodecInfo kDecoderInfo[] = {
-    { MEDIA_MIMETYPE_IMAGE_JPEG, "OMX.TI.JPEG.decode" },
+    { MEDIA_MIMETYPE_IMAGE_JPEG, "OMX.TI.JPEG.decoder" },
 #ifdef QCOM_HARDWARE
     { MEDIA_MIMETYPE_AUDIO_MPEG, "OMX.qcom.audio.decoder.mp3" },
 #endif
@@ -1030,7 +1030,7 @@ status_t OMXCodec::configureCodec(const sp<MetaData> &meta) {
     }
 
     if (!strcasecmp(mMIME, MEDIA_MIMETYPE_IMAGE_JPEG)
-        && !strcmp(mComponentName, "OMX.TI.JPEG.decode")) {
+        && !strcmp(mComponentName, "OMX.TI.JPEG.decoder")) {
         OMX_COLOR_FORMATTYPE format =
             OMX_COLOR_Format32bitARGB8888;
             // OMX_COLOR_FormatYUV420PackedPlanar;
