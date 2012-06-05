@@ -155,7 +155,7 @@ static VideoFrame *extractVideoFrameWithCodecFlags(
         options.setSeekTo(thumbNailTime, mode);
     } else {
         thumbNailTime = -1;
-        options.setSeekTo(frameTimeUs < 0 ? 0 : frameTimeUs, mode);
+        options.setSeekTo(frameTimeUs, mode);
     }
 
     MediaBuffer *buffer = NULL;
