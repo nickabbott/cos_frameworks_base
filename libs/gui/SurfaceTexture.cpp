@@ -498,6 +498,7 @@ status_t SurfaceTexture::dequeueBuffer(int *outBuf, uint32_t w, uint32_t h,
             if (updateFormat) {
                 mPixelFormat = format;
             }
+
             mSlots[buf].mGraphicBuffer = graphicBuffer;
             mSlots[buf].mRequestBufferCalled = false;
             mSlots[buf].mFence = EGL_NO_SYNC_KHR;
@@ -784,9 +785,9 @@ status_t SurfaceTexture::disconnect(int api) {
 #ifdef QCOM_HARDWARE
 status_t SurfaceTexture::performQcomOperation(int operation, int arg1, int arg2, int arg3)
 {
-     ST_LOGV("SurfaceTexture::performQcomOperation operation=%d", operation);
+    ST_LOGV("SurfaceTexture::performQcomOperation operation=%d", operation);
 
-     switch(operation) {
+    switch(operation) {
         case NATIVE_WINDOW_SET_BUFFERS_SIZE: {
             int size = arg1;
             mGraphicBufferAlloc->setGraphicBufferSize(size);
@@ -822,7 +823,7 @@ status_t SurfaceTexture::setScalingMode(int mode) {
     return OK;
 }
 
-status_t SurfaceTexture::updateTexImage(bool isComposition) {
+status_t SurfaceTexture::updateTexImage(bool avoidBindTexture, bool isComposition) {
     ST_LOGV("updateTexImage");
     Mutex::Autolock lock(mMutex);
 
@@ -841,7 +842,12 @@ status_t SurfaceTexture::updateTexImage(bool isComposition) {
         EGLImageKHR image = mSlots[buf].mEglImage;
         EGLDisplay dpy = eglGetCurrentDisplay();
 #ifdef QCOM_HARDWARE
-        if (isGPUSupportedFormat(mSlots[buf].mGraphicBuffer->format)) {
+        if (isGPUSupportedFormat(mSlots[buf].mGraphicBuffer->format)
+#ifdef CHECK_FOR_EXTERNAL_FORMAT
+            && ((avoidBindTexture == false) ||
+            (isGPUSupportedFormatInHW(mSlots[buf].mGraphicBuffer->format)))
+#endif
+            ) {
 #endif
         if (image == EGL_NO_IMAGE_KHR) {
             if (mSlots[buf].mGraphicBuffer == 0) {
