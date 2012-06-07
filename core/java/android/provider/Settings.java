@@ -2846,48 +2846,6 @@ public final class Settings {
          */
         public static final String ADB_ENABLED = "adb_enabled";
 
-         /**
-         * Minimum on boot CPU speed -1 for default
-         * note value will take effect after first sleep and default settings apply if
-         * any MIN/MAX value is -1
-         * @hide
-         */
-        public static final String CPUFREQ_PERSIST_MIN = "cpufreq_persist_min";
-
-        /**
-         * Maximum (while awake) on boot CPU speed -1 for default
-         * note value will take effect after first sleep and default settings apply if
-         * any MIN/MAX value is -1
-         * @hide
-         */
-        public static final String CPUFREQ_PERSIST_WAKEMAX = "cpufreq_persist_wakemax";
-
-        /**
-         * Maximum (while asleep) on boot CPU speed -1 for default
-         * note value will take effect after first sleep and default settings apply if
-         * any MIN/MAX value is -1
-         * @hide
-         */
-        public static final String CPUFREQ_PERSIST_SLEEPMAX = "cpufreq_persist_sleepmax";
-
-        /**
-         * Minimum cpu speed reset on boot
-         * @hide
-         */
-        public static final String CPUFREQ_ACTIVE_MIN = "cpufreq_active_min";
-
-        /**
-         * Maximum cpu speed (while awake)  reset on boot
-         * @hide
-         */
-        public static final String CPUFREQ_ACTIVE_WAKEMAX = "cpufreq_active_wakemax";
-
-        /**
-         * Maximum cpu speed (while asleep) reset on boot
-         * @hide
-         */
-        public static final String CPUFREQ_ACTIVE_SLEEPMAX = "cpufreq_active_sleepmax";
-
         /**
          * The TCP/IP port to run ADB on, or -1 for USB
          * @hide
